@@ -4,9 +4,16 @@ export enum TaskStatus {
   DONE = 'DONE',
 }
 
-export interface TaskModel {
+export interface ITaskModel {
   id: string;
   title: string;
   description: string;
   status: TaskStatus;
+}
+
+export class TaskModel implements ITaskModel {
+  description: string;
+  id: string;
+  status: TaskStatus;
+  title: string;
 }

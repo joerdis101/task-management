@@ -1,18 +1,18 @@
-import { Get, HttpException, Injectable } from '@nestjs/common';
-import { TaskModel, TaskStatus } from './task.model';
+import { Injectable } from '@nestjs/common';
+import { ITaskModel, TaskModel, TaskStatus } from './task.model';
 import { v4 as uuidv4 } from 'uuid';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 
 @Injectable()
 export class TasksService {
-  private tasks: TaskModel[] = [];
+  private tasks: ITaskModel[] = [];
 
-  getAllTasks(): TaskModel[] {
+  getAllTasks(): ITaskModel[] {
     return this.tasks;
   }
 
-  getTasksWithFilters(filterDto: GetTasksFilterDto): TaskModel[] {
+  getTasksWithFilters(filterDto: GetTasksFilterDto): ITaskModel[] {
     const { status, search } = filterDto;
     let tasks = this.getAllTasks();
 
@@ -29,19 +29,18 @@ export class TasksService {
     return tasks;
   }
 
-  getTaskById(id: string): TaskModel {
+  getTaskById(id: string): ITaskModel {
     return this.tasks.find(task => task.id === id);
   }
 
-  createTask(createTaskDto: CreateTaskDto): TaskModel {
+  createTask(createTaskDto: CreateTaskDto): ITaskModel {
     const { title, description } = createTaskDto;
 
-    const task: TaskModel = {
-      id: uuidv4(),
-      title,
-      description,
-      status: TaskStatus.OPEN,
-    }
+    const task = new TaskModel();
+    task.description = description
+    task.id = uuidv4()
+    task.status = TaskStatus.OPEN
+    task.title = title
 
     this.tasks.push(task);
     return task;
@@ -51,7 +50,7 @@ export class TasksService {
     this.tasks = this.tasks.filter(task => task.id !== id);
   }
 
-  updateTaskStatus(id: string, status: TaskStatus): TaskModel {
+  updateTaskStatus(id: string, status: TaskStatus): ITaskModel {
     const task = this.getTaskById(id);
 
     task.status = status;
