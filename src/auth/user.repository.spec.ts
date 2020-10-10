@@ -1,5 +1,5 @@
 import { Test } from '@nestjs/testing';
-import { ConflictException, InternalServerErrorException } from '@nestjs/common';
+import { ConflictException } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { UserEntity } from './user.entity';
 import * as bcrypt from 'bcryptjs';
@@ -38,8 +38,9 @@ describe('UserRepository', () => {
     });
 
     it('throws a conflict exception as username already exists', () => {
-      save.mockRejectedValue({ code: '123123' }); // unhandled error code
-      expect(userRepository.signUp(mockCredentialsDto)).rejects.toThrow(InternalServerErrorException);
+      save.mockRejectedValue({ code: '123123' });
+      return expect(
+        userRepository.signUp(mockCredentialsDto)).rejects.toThrow(ConflictException);
     });
   });
 
