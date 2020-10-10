@@ -8,7 +8,7 @@ import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 export class UserRepository extends Repository<UserEntity> {
   async signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
     const { username, password } = authCredentialsDto;
-    const user = new UserEntity();
+    const user = this.create();
 
     user.username = username;
     user.salt = await bcrypt.genSalt();
