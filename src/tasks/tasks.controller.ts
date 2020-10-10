@@ -20,7 +20,9 @@ import { TaskEntity } from './task.entity';
 import { TaskStatus } from './task-status.enum';
 import { GetUser } from '../auth/get-user.decorator';
 import { UserEntity } from '../auth/user.entity';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('tasks')
 @UseGuards(AuthGuard())
 export class TasksController {
