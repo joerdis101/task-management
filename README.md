@@ -25,15 +25,20 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
-Task Management App with the
 
-[Nest](https://github.com/nestjs/nest) framework.
+Task Management Api which offer a user sign up/sign in 
+to create a task, update a task, delete a task and 
+get all tasks for this user.
 
 ## Installation
 
 ```bash
 $ npm install
 ```
+## Environment
+
+Folgende Environment Variablen werden benötigt:
+* JWT_SECRET
 
 ## Running the app
 
@@ -47,6 +52,11 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+
+## Swagger
+
+Find the Swagger API documentation:
+http://localhost:3000/api/
 
 ## Test
 
